@@ -54,8 +54,8 @@ export default Vue.extend({
     mousedown(this: Vue, e: MouseEvent) {
       if(this.$el instanceof HTMLTableElement) {
         this.$el.style.backgroundColor = 'rgba(0,123,255,0.2)';
-        this.$store.commit('selectCar', this.$el.parentElement!.id)
-        this.$data.carId.push(this.$el.id)
+        this.$store.commit('selectCar', this.$el.parentElement!.id);
+        this.$data.carId.push(this.$el.id);
         
         if(this.$data.carId.length === 2){
           this.$data.carId.sort();
@@ -65,9 +65,9 @@ export default Vue.extend({
             position: 'absolute'
           };
             // this.carId...○日〜○日の配列
-          this.$store.commit('selectDays', this.$data.carId)
-          this.$store.commit('putForm', true)
-          this.$store.commit('changePos', this.$data.pos)
+          this.$store.commit('selectDays', this.$data.carId);
+          this.$store.commit('putForm', true);
+          this.$store.commit('changePos', this.$data.pos);
         }
       }
       if(this.$data.carId.length === 3){

@@ -3,8 +3,8 @@
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
      <button @click="hoge">クリック</button>
-     <!-- <CurrentMonth />
-     <CarsCreate />
+     <CurrentMonth />
+     <!-- <CarsCreate />
      <CarDelete v-bind:cars='cars' />
      <br> -->
      <CarsTable v-bind:id="cars" v-bind:calender="calender" v-bind:workingMonth="workingMonth" />
