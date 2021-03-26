@@ -1,15 +1,15 @@
 <template>
   <div>
     <div>
-        <table class="table">
-            <thead>
-                <tr><th></th><th v-for="(i, index) in daysCount" v-bind:key="index">{{ i }}</th></tr>
-            </thead>
-            <tbody>
-                <tr v-for="(car, index) in cars" v-bind:id="car.id" v-bind:key="index"><th>{{ car.car_name }}</th>
-                <td v-for="(reservation, key) in makeCalender(car)" v-on:mousedown="mousedown" v-bind:id="key" v-bind:key="key" class="td01" v-bind:style="cellColor">{{ reservation }}</td></tr>
-            </tbody>
-        </table>
+      <table class="table">
+        <thead>
+          <tr><th></th><th v-for="(i, index) in daysCount" v-bind:key="index">{{ i }}</th></tr>
+        </thead>
+        <tbody>
+          <tr v-for="(car, index) in cars" v-bind:id="car.id" v-bind:key="index"><th>{{ car.car_name }}</th>
+          <td v-for="(reservation, key) in makeCalender(car)" v-on:mousedown="mousedown" v-bind:id="key" v-bind:key="key" class="td01">{{ reservation }}</td></tr>
+        </tbody>
+      </table>
     </div>
     {{ Number(daysCount) }}
     <UpdateTable />
@@ -21,12 +21,11 @@ import Vue from 'vue'
 import UpdateTable from './UpdateTable.vue'
 import { mapState } from 'vuex'
 
-
 export default Vue.extend({
   template: 'UpdateTable',
   name: 'CarsTable',
   props: ['days'],
-  computed: mapState(['daysCount', 'cars', 'workingMonth']),
+  computed: mapState(['daysCount', 'cars', 'workingMonth', 'cellColor', 'pos']),
   data() {
     return {
       reservation: '',
@@ -68,7 +67,7 @@ export default Vue.extend({
             // this.carId...○日〜○日の配列
           this.$store.commit('selectDays', this.$data.carId)
           this.$store.commit('putForm', true)
-          this.$store.commit('pos', this.$data.pos)
+          this.$store.commit('changePos', this.$data.pos)
         }
       }
       if(this.$data.carId.length === 3){
