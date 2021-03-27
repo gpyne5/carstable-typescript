@@ -13,10 +13,10 @@ import Vue from 'vue';
 export default Vue.extend({
   data() {
     return {
-      currentDate: new Date().toISOString().slice(0, 7),
-      workingMonth: new Date().toISOString().slice(0, 7),
-      calDate: new Date(),
-      exist: false,
+      currentDate:    new Date().toISOString().slice(0, 7),
+      workingMonth:   new Date().toISOString().slice(0, 7),
+      calDate:        new Date(),
+      exist:          false,
     }
   }, 
   methods: {

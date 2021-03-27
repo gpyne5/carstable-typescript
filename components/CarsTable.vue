@@ -28,13 +28,13 @@ export default Vue.extend({
   computed: mapState(['daysCount', 'cars', 'workingMonth', 'cellColor', 'pos']),
   data() {
     return {
-      reservation: '',
+      reservation:     '',
       //date: new Date().toISOString().slice(0,7), // 2021-02 のような文字列
-      currentDate: new Date().toISOString().slice(0,7),
-      carId: [],
-      onClick: {},
-      show: false,
-      selectCell: false,
+      currentDate:     new Date().toISOString().slice(0,7),
+      carId:           [] as string[],
+      onClick:         {},
+      show:            false,
+      selectCell:      false,
       makeCalender(this: Vue, car: {id: number, car_name: string, carNumber: string}) {
         let result: string[] = [];
         for(let j=0,len=this.$store.getters.calender.length;j<len;j++){
@@ -52,7 +52,8 @@ export default Vue.extend({
   },
   methods: {
     mousedown(this: Vue, e: MouseEvent) {
-      if(this.$el instanceof HTMLTableElement) {
+      if(this.$el instanceof HTMLElement) {
+
         this.$el.style.backgroundColor = 'rgba(0,123,255,0.2)';
         this.$store.commit('selectCar', this.$el.parentElement!.id);
         this.$data.carId.push(this.$el.id);
@@ -66,7 +67,7 @@ export default Vue.extend({
           };
             // this.carId...○日〜○日の配列
           this.$store.commit('selectDays', this.$data.carId);
-          this.$store.commit('putForm', true);
+          this.$store.commit('changePutForm', true);
           this.$store.commit('changePos', this.$data.pos);
         }
       }
