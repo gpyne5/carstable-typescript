@@ -107,7 +107,7 @@ export const actions: ActionTree<RootState, RootState> = {
       .then(res => context.commit('setData',res.data))
       .catch(e => console.log(e));
   },
-  async putData(context, payload){
+  async putData(context, payload: putData){
     await this.$axios.put('http://localhost/admin/' + payload.id, payload.data)
       .then(res => context.commit('setData',res.data))
       .catch(e => console.log(e));
@@ -160,4 +160,13 @@ type Data2 = {
   _29:      string | null,
   _30:      string | null,
   _31:      string | null,
+}
+type putData = {
+  id: string,
+  data: {
+    customerName: string,
+    currentMonth: string,
+    dateStart: string,
+    dateEnd: string
+  }
 }

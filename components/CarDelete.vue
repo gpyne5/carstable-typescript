@@ -17,8 +17,8 @@ export default Vue.extend({
   props: ['cars'],
   data() {
     return {
-      deleteCar: '',
-      flag: false,
+      deleteCar:  '',
+      flag:       false,
     }
   },
   methods: {
@@ -43,5 +43,16 @@ export default Vue.extend({
 </script>
 
 <style>
-
+.delete {
+    position: relative;
+    padding: 10px;
+    border: solid 1px #000;
+    height: 80px;
+    width: 150px;
+    background-color: rgba(0, 123, 255, 0.2);
+}
+.car-delete {
+    padding: 10px;
+    float: left;
+}
 </style>
