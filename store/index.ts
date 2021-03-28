@@ -97,19 +97,19 @@ export const actions: ActionTree<RootState, RootState> = {
       .then(res => context.commit('setData', res.data))
       .catch(e => console.log(e));
   },
-  async postData(context, payload) {
+  async postData(context, payload: {car_name: string, car_number: string}) {
     await this.$axios.post('http://localhost/admin', payload)
-      .then(res => context.commit('setData',res))
+      .then(res => context.commit('setData',res.data))
       .catch(e => console.log(e));
   },
-  async deleteData(context, payload){
+  async deleteData(context, payload:string){
     await this.$axios.delete('http://localhost/admin/' + payload)
-      .then(res => context.commit('setData',res))
+      .then(res => context.commit('setData',res.data))
       .catch(e => console.log(e));
   },
   async putData(context, payload){
     await this.$axios.put('http://localhost/admin/' + payload.id, payload.data)
-      .then(res => context.commit('setData',res))
+      .then(res => context.commit('setData',res.data))
       .catch(e => console.log(e));
   },
 }

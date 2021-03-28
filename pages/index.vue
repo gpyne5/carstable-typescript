@@ -4,9 +4,9 @@
 
      <button @click="hoge">クリック</button>
      <CurrentMonth />
-     <!-- <CarsCreate />
+     <CarsCreate />
      <CarDelete v-bind:cars='cars' />
-     <br> -->
+     <br>
      <CarsTable v-bind:id="cars" v-bind:calender="calender" v-bind:workingMonth="workingMonth" />
   </div>
 </template>
@@ -37,5 +37,16 @@ export default Vue.extend({
 </script>
 
 <style>
-
+.delete {
+    position: relative;
+    padding: 10px;
+    border: solid 1px #000;
+    height: 80px;
+    width: 150px;
+    background-color: rgba(0, 123, 255, 0.2);
+}
+.car-delete {
+    padding: 10px;
+    float: left;
+}
 </style>

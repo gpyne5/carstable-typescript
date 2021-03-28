@@ -53,6 +53,7 @@ export default Vue.extend({
   methods: {
     mousedown(this: Vue, e: MouseEvent) {
       if(this.$el instanceof HTMLElement) {
+        console.log(e.target)
 
         this.$el.style.backgroundColor = 'rgba(0,123,255,0.2)';
         this.$store.commit('selectCar', this.$el.parentElement!.id);
