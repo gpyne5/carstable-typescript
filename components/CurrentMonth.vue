@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <div class="curret-month">
+  
+    <div class="current-month">
       <a href="#" v-if="exist" @click="beforeMonth">&lt;&lt;</a>
       <h2>{{ workingMonth }}月</h2>
       <a href="#" @click="nextMonth">&gt;&gt;</a>
     </div>
-  </div>
+
 </template>
 
 <script lang="ts">
@@ -47,14 +47,14 @@ export default Vue.extend({
 
 <style>
 .current-month {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 h2 {
-    text-align: center;
-    font-size: 20px;
-    display: inline-table;
-    margin: 0 auto;
+  text-align: center;
+  font-size: 20px;
+  display: inline-table;
+  margin: 0 auto;
 }
 </style>

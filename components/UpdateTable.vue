@@ -4,7 +4,6 @@
     <input type="text" v-model="customerName">
     <input type="submit" v-on:click="click" value="予約">
   </div>
-  <button @click="test">テスト</button>
 </div>
 </template>
 
@@ -22,9 +21,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    test(this: Vue) {
-      console.log(this.$store.getters.selectedDays)
-    },
     click(this: Vue) {
       let data = {
         customerName:  this.$data.customerName,

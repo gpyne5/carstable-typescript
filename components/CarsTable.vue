@@ -11,7 +11,6 @@
         </tbody>
       </table>
     </div>
-    {{ Number(daysCount) }}
     <UpdateTable />
   </div>
 </template>
@@ -35,6 +34,7 @@ export default Vue.extend({
       onClick:         {},
       show:            false,
       selectCell:      false,
+      firstClick:      0,
       makeCalender(this: Vue, car: {id: number, car_name: string, carNumber: string}) {
         let result: string[] = [];
         for(let j=0,len=this.$store.getters.calender.length;j<len;j++){
@@ -53,10 +53,18 @@ export default Vue.extend({
   methods: {
     mousedown(this: Vue, e: MouseEvent, id: string, index: number, key: number) {
       if(this.$el instanceof HTMLElement) {
-        
-        let targetTd = document.getElementsByTagName('tr').item(index + 1)!.getElementsByTagName('td').item(key);
-        targetTd!.className = 'select';
-  
+
+        if(this.$data.firstClick === 0) {
+          this.$data.firstClick = key;
+          let targetTd = document.getElementsByTagName('tr').item(index + 1)!.getElementsByTagName('td').item(key)!;
+          targetTd.className = 'select';
+        } else if (this.$data.firstClick !== 0) {
+          for (let i = this.$data.firstClick; i < key + 1; i ++){
+              let targetTd = document.getElementsByTagName('tr').item(index + 1)!.getElementsByTagName('td').item(i)!;
+              targetTd.className = 'select';
+          }
+        }
+
 
         this.$store.commit('selectCar', id);
         this.$data.carId.push(String(key + 1)); //key...makeCalenderの返り値string[]のインデックス
@@ -86,4 +94,37 @@ export default Vue.extend({
 .select {
   background-color: rgba(0,123,255,0.2);
 }
+
+.td01:hover {
+  background-color: rgba(0,123,255,0.6)
+
+}
+th {
+  width: 50px; border-bottom:1px solid gray;border-left:1px solid gray; overflow-wrap : break-word;text-align: center;
+}
+
+td {
+  width: 50px; border-bottom:1px solid gray;border-left:1px solid gray;overflow-wrap : break-word;text-align: center;
+}
+
+table {
+  table-layout:fixed;width: 100%;
+}
+
+.post-form {
+  height: 80px;
+  width: 250px;
+  background-color: rgba(92, 133, 245, 0.5);
+  border: solid 1px blue;
+}
+
+.form-position {
+  position: relative;
+  padding: 10px;
+}
+
+.selected-day {
+  padding: 8px;
+}
+
 </style>
