@@ -65,7 +65,7 @@ export const mutations: MutationTree<RootState> = {
   selectDays(state, payload: string[]) {
     state.selectedDays = payload;
   },
-  selectCar(state,payload: string) {
+  selectCar(state, payload: string) {
     state.selectedCarId = payload;
   },
   changePutForm(state,payload: boolean) {

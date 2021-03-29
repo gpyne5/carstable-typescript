@@ -4,6 +4,7 @@
     <input type="text" v-model="customerName">
     <input type="submit" v-on:click="click" value="予約">
   </div>
+  <button @click="test">テスト</button>
 </div>
 </template>
 
@@ -21,15 +22,18 @@ export default Vue.extend({
     }
   },
   methods: {
-    click() {
+    test(this: Vue) {
+      console.log(this.$store.getters.selectedDays)
+    },
+    click(this: Vue) {
       let data = {
-        customerName:  this.customerName,
-        currentMonth:  this.workingMonth,
-        dateStart:     this.selectedDays[0],
-        dateEnd:       this.selectedDays[1]
+        customerName:  this.$data.customerName,
+        currentMonth:  this.$store.getters.workingMonth,
+        dateStart:     this.$store.getters.selectedDays[0],
+        dateEnd:       this.$store.getters.selectedDays[1]
       };
       let payload = {
-        id :   this.selectedCarId,
+        id :   this.$store.getters.selectedCarId,
         data:  data
       }
       this.$store.dispatch('putData', payload);

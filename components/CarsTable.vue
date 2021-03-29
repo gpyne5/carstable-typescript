@@ -7,7 +7,7 @@
         </thead>
         <tbody>
           <tr v-for="(car, index) in cars" v-bind:id="car.id" v-bind:key="index"><th>{{ car.car_name }}</th>
-          <td v-for="(reservation, key) in makeCalender(car)" v-on:mousedown="mousedown" v-bind:id="key" v-bind:key="key" class="td01">{{ reservation }}</td></tr>
+          <td v-for="(reservation, key) in makeCalender(car)" v-on:mousedown="mousedown($event, String(car.id), key)" v-bind:id="key" v-bind:key="key" class="td01">{{ reservation }}</td></tr>
         </tbody>
       </table>
     </div>
@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import UpdateTable from './UpdateTable.vue'
+// import UpdateTable from './UpdateTable.vue'
 import { mapState } from 'vuex'
 
 export default Vue.extend({
@@ -51,13 +51,11 @@ export default Vue.extend({
     };
   },
   methods: {
-    mousedown(this: Vue, e: MouseEvent) {
+    mousedown(this: Vue, e: MouseEvent, id: string, key: number) {
       if(this.$el instanceof HTMLElement) {
-        console.log(e.target)
-
         this.$el.style.backgroundColor = 'rgba(0,123,255,0.2)';
-        this.$store.commit('selectCar', this.$el.parentElement!.id);
-        this.$data.carId.push(this.$el.id);
+        this.$store.commit('selectCar', id);
+        this.$data.carId.push(key + 1); //key...makeCalenderの返り値string[]のインデックス
         
         if(this.$data.carId.length === 2){
           this.$data.carId.sort();
@@ -77,7 +75,6 @@ export default Vue.extend({
       };
     }
   }
-  
 })
 </script>
 
