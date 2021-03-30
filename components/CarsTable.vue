@@ -60,9 +60,10 @@ export default Vue.extend({
           targetTr.getElementsByTagName('td').item(key)!.className = 'select';
         } else if (this.$data.firstClick.length !== 0) {
           this.$data.firstClick.push(key);
-          this.$data.firstClick.sort();
+          this.$data.firstClick.sort((a: number, b: number) => a - b);
+          console.log(this.$data.firstClick)
           for (let i = this.$data.firstClick[0]; i < this.$data.firstClick[1] + 1; i ++){
-              targetTr.getElementsByTagName('td').item(i)!.className = 'select';
+            targetTr.getElementsByTagName('td').item(i)!.className = 'select';
           }
         }
 
