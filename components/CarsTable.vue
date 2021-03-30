@@ -34,7 +34,7 @@ export default Vue.extend({
       onClick:         {},
       show:            false,
       selectCell:      false,
-      firstClick:      0,
+      firstClick:      [] as number[],
       makeCalender(this: Vue, car: {id: number, car_name: string, carNumber: string}) {
         let result: string[] = [];
         for(let j=0,len=this.$store.getters.calender.length;j<len;j++){
@@ -54,17 +54,17 @@ export default Vue.extend({
     mousedown(this: Vue, e: MouseEvent, id: string, index: number, key: number) {
       if(this.$el instanceof HTMLElement) {
 
-        if(this.$data.firstClick === 0) {
-          this.$data.firstClick = key;
-          let targetTd = document.getElementsByTagName('tr').item(index + 1)!.getElementsByTagName('td').item(key)!;
-          targetTd.className = 'select';
-        } else if (this.$data.firstClick !== 0) {
-          for (let i = this.$data.firstClick; i < key + 1; i ++){
-              let targetTd = document.getElementsByTagName('tr').item(index + 1)!.getElementsByTagName('td').item(i)!;
-              targetTd.className = 'select';
+        let targetTr = document.getElementsByTagName('tr').item(index + 1)!
+        if(this.$data.firstClick.length === 0) {
+          this.$data.firstClick.push(key);
+          targetTr.getElementsByTagName('td').item(key)!.className = 'select';
+        } else if (this.$data.firstClick.length !== 0) {
+          this.$data.firstClick.push(key);
+          this.$data.firstClick.sort();
+          for (let i = this.$data.firstClick[0]; i < this.$data.firstClick[1] + 1; i ++){
+              targetTr.getElementsByTagName('td').item(i)!.className = 'select';
           }
         }
-
 
         this.$store.commit('selectCar', id);
         this.$data.carId.push(String(key + 1)); //key...makeCalenderの返り値string[]のインデックス
