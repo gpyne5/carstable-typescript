@@ -7,7 +7,8 @@
         </thead>
         <tbody>
           <tr v-for="(car, index) in cars" v-bind:id="car.id" v-bind:key="index"><th>{{ car.car_name }}</th>
-          <td v-for="(reservation, key) in makeCalender(car)" v-on:mousedown="mousedown($event, String(car.id), index, key)" v-bind:id="key" v-bind:key="key" class="td01">{{ reservation }}</td></tr>
+          <!-- <td v-for="(reservation, key) in makeCalender(car)" v-on:mousedown="mousedown($event, String(car.id), index, key)" v-bind:id="key" v-bind:key="key" class="td01">{{ reservation }}</td></tr> -->
+          <td v-for="(testResult, key) in makeCalender(car)" v-on:mousedown="mousedown($event, String(car.id), index, key)" v-bind:id="key" v-bind:key="key" class="td01"><span v-bind:class="testResult.reservation.sales">{{ testResult.reservation.customer }}</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -37,13 +38,31 @@ export default Vue.extend({
       firstClick:      [] as number[],
       makeCalender(this: Vue, car: {id: number, car_name: string, carNumber: string}) {
         let result: string[] = [];
+        let testResult: {key: number, reservation:{customer: string, sales: string}}[] = [];
         for(let j=0,len=this.$store.getters.calender.length;j<len;j++){
           if(this.$store.getters.calender[j].y_m === this.$store.getters.workingMonth){
             if(this.$store.getters.calender[j].car_id === car.id){
               for(let i=1,len=this.$store.getters.daysCount+1;i<len;i++){
-                result.push(this.$store.getters.calender[j]['_' + i.toString()]);
+                let spl = this.$store.getters.calender[j]['_' + i.toString()]
+                if(spl) {
+                  testResult.push({key: i,
+                                  reservation: {
+                                    customer: spl.split('_')[0],
+                                    sales: spl.split('_')[1]
+                                  }})
+                  
+                  console.log(testResult)
+                } else {
+                  // result.push(this.$store.getters.calender[j]['_' + i.toString()]);
+                  testResult.push({key: i,
+                                  reservation: {
+                                    customer: '',
+                                    sales: ''
+                                  }})
+                }
+                // result.push(this.$store.getters.calender[j]['_' + i.toString()]);
               }
-              return result;
+              return testResult;
             }
           }
         }
@@ -61,7 +80,6 @@ export default Vue.extend({
         } else if (this.$data.firstClick.length !== 0) {
           this.$data.firstClick.push(key);
           this.$data.firstClick.sort((a: number, b: number) => a - b);
-          console.log(this.$data.firstClick)
           for (let i = this.$data.firstClick[0]; i < this.$data.firstClick[1] + 1; i ++){
             targetTr.getElementsByTagName('td').item(i)!.className = 'select';
           }
@@ -92,6 +110,12 @@ export default Vue.extend({
 </script>
 
 <style>
+.a {
+  color: blue;
+}
+.b {
+  color: red;
+}
 .select {
   background-color: rgba(0,123,255,0.2);
 }

@@ -2,7 +2,12 @@
 <div class="post-form" v-show="putForm" v-bind:style="[pos]">
   <div  class="form-position">
     <input type="text" v-model="customerName">
+    <select v-model="sales">
+      <option value="_a">佐藤</option>
+      <option value="_b">高橋</option>
+    </select>
     <input type="submit" v-on:click="click" value="予約">
+
   </div>
 </div>
 </template>
@@ -18,12 +23,13 @@ export default Vue.extend({
   data() {
     return {
       customerName: '',
+      sales: ''
     }
   },
   methods: {
     click(this: Vue) {
       let data = {
-        customerName:  this.$data.customerName,
+        customerName:  this.$data.customerName + this.$data.sales,
         currentMonth:  this.$store.getters.workingMonth,
         dateStart:     this.$store.getters.selectedDays[0],
         dateEnd:       this.$store.getters.selectedDays[1]
