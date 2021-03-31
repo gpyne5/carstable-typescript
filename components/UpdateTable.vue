@@ -3,8 +3,13 @@
   <div  class="form-position">
     <input type="text" v-model="customerName">
     <select v-model="sales">
-      <option value="_a">佐藤</option>
-      <option value="_b">高橋</option>
+      <option value="_z"> </option>
+      <option value="_a">瓶子</option>
+      <option value="_b">林</option>
+      <option value="_c">南</option>
+      <option value="_d">箕輪</option>
+      <option value="_e">江良</option>
+
     </select>
     <input type="submit" v-on:click="click" value="予約">
 

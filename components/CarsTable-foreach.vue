@@ -20,6 +20,7 @@
 import Vue from 'vue'
 // import UpdateTable from './UpdateTable.vue'
 import { mapState } from 'vuex'
+import { Data2 } from '../store/index'
 
 export default Vue.extend({
   template: 'UpdateTable',
@@ -39,11 +40,12 @@ export default Vue.extend({
       makeCalender(this: Vue, car: {id: number, car_name: string, carNumber: string}) {
         let result: string[] = [];
         let testResult: {reservation:{customer: string, sales: string}}[] = [];
-        for(let j=0,len=this.$store.getters.calender.length;j<len;j++){
-          if(this.$store.getters.calender[j].y_m === this.$store.getters.workingMonth){
-            if(this.$store.getters.calender[j].car_id === car.id){
+        this.$store.getters.calender.forEach((_calender: Data2) => {
+          if(_calender.y_m === this.$store.getters.workingMonth){
+            if(_calender.car_id === car.id){
               for(let i=1,len=this.$store.getters.daysCount+1;i<len;i++){
-                let spl = this.$store.getters.calender[j]['_' + i.toString()]
+                let param = '_' + i.toString()
+                let spl = _calender[param]
                 if(spl) {
                   testResult.push({reservation: {
                                     customer: spl.split('_')[0],
@@ -63,7 +65,9 @@ export default Vue.extend({
               return testResult;
             }
           }
-        }
+        })
+          
+        
       }
     };
   },
