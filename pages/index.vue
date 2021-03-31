@@ -15,10 +15,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import CarsTableForeach from '../components/CarsTable-foreach.vue'
+import CarsTable from '../components/CarsTable.vue'
 
 export default Vue.extend({
-  components: { CarsTableForeach },
+  components: { CarsTable },
   methods: {
     hoge: function(this: Vue, e: MouseEvent) {
       console.log(this.$el)

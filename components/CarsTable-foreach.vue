@@ -20,7 +20,7 @@
 import Vue from 'vue'
 // import UpdateTable from './UpdateTable.vue'
 import { mapState } from 'vuex'
-import { Data2 } from '../store/index'
+import { KeyType } from '../store/index'
 
 export default Vue.extend({
   template: 'UpdateTable',
@@ -38,36 +38,31 @@ export default Vue.extend({
       selectCell:      false,
       firstClick:      [] as number[],
       makeCalender(this: Vue, car: {id: number, car_name: string, carNumber: string}) {
-        let result: string[] = [];
-        let testResult: {reservation:{customer: string, sales: string}}[] = [];
-        this.$store.getters.calender.forEach((_calender: Data2) => {
+        let result: {reservation:{customer: string, sales: string}}[] = [];
+        this.$store.getters.calender.filter((_calender: KeyType) => {
           if(_calender.y_m === this.$store.getters.workingMonth){
             if(_calender.car_id === car.id){
               for(let i=1,len=this.$store.getters.daysCount+1;i<len;i++){
                 let param = '_' + i.toString()
                 let spl = _calender[param]
-                if(spl) {
-                  testResult.push({reservation: {
+                if(typeof spl === 'string') {
+                  result.push({reservation: {
                                     customer: spl.split('_')[0],
                                     sales: spl.split('_')[1]
                                   }})
-                  
-                  console.log(testResult)
                 } else {
                   // result.push(this.$store.getters.calender[j]['_' + i.toString()]);
-                  testResult.push({reservation: {
+                  result.push({reservation: {
                                     customer: '',
                                     sales: ''
                                   }})
                 }
                 // result.push(this.$store.getters.calender[j]['_' + i.toString()]);
               }
-              return testResult;
             }
           }
         })
-          
-        
+        return result;
       }
     };
   },
@@ -109,6 +104,7 @@ export default Vue.extend({
     }
   }
 })
+
 </script>
 
 <style>

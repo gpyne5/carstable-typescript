@@ -50,7 +50,6 @@ export default Vue.extend({
                                     sales: spl.split('_')[1]
                                   }})
                   
-                  console.log(testResult)
                 } else {
                   // result.push(this.$store.getters.calender[j]['_' + i.toString()]);
                   testResult.push({reservation: {
